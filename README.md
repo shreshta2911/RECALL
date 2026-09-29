@@ -5,7 +5,8 @@ RECALL is an AI agent that helps engineers respond to production incidents by re
 It is built on [Hindsight](https://github.com/vectorize-io/hindsight), which stores and retrieves the persistent memory RECALL relies on. Hindsight isn't a add-on here — every recommendation RECALL makes is generated *from* what it retrieves from Hindsight for that specific incident.
 
 Demo link: https://youtu.be/VD6OAr7gT30?si=s-6oYEuIdGJHg8M4
-
+Article: https://dev.to/shreshta_poojari_f51a6c09/i-taught-an-engineering-agent-to-remember-what-failed-225a
+Linkedin: https://lnkd.in/p/dpQphwUn
 ---
 
 ## The problem
