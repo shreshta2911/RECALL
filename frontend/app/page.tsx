@@ -1,0 +1,20 @@
+import Link from 'next/link'
+
+const steps = [
+  ['01', 'Describe the incident', 'Give RECALL the problem and the context around it.'],
+  ['02', "RECALL investigates the history", 'The agent surfaces incidents and decisions that matter.'],
+  ['03', 'Get a recommendation with the evidence behind it', 'See a clear next step and why it fits the situation.'],
+  ['04', 'Save what you learned for next time', 'Leave a lesson for the next engineer who needs it.'],
+]
+
+export default function Home() {
+  return <main className="home-shell">
+    <nav className="home-nav content-width"><Link href="/" className="wordmark">RECALL</Link><div className="nav-links"><a href="#product">Product</a><a href="#how-it-works">How it works</a><a href="#use-cases">Use cases</a><a href="#docs">Docs</a></div><Link href="/app" className="button button-primary">Open workspace</Link></nav>
+    <section className="hero content-width" id="product"><p className="quiet-kicker">Incident response, informed by experience</p><h1>Resolve incidents with the experience your team already has.</h1><p className="hero-copy">RECALL is an AI incident response agent. Describe what&apos;s failing and get a clear next step, backed by how your team handled it before.</p><div className="hero-actions"><Link href="/app" className="button button-primary">Open workspace</Link><a href="#how-it-works" className="button button-secondary">See how it works</a></div><p className="quiet-line">AI Incident Response Agent <span>·</span> Persistent engineering memory powered by Hindsight</p></section>
+    <section className="preview-frame content-width" aria-label="RECALL product preview"><div className="preview-top"><span>NovaPay / Production</span><span>Incident investigator</span></div><div className="preview-body"><div><p className="field-label">Problem</p><p className="preview-input">Payment API latency is currently very high. Should we increase the number of Payment Service replicas?</p><p className="field-label">Current context</p><p className="preview-input">Payment Service. Production. Strong transactional consistency required.</p><span className="button button-primary preview-button">Investigate</span></div><div className="recommendation-preview"><p className="field-label">Recommendation</p><h3>Check connection pool utilization before increasing replicas.</h3><p>Based on your team&apos;s history, recalled from Hindsight.</p></div></div></section>
+    <section className="content-width section" id="how-it-works"><div className="section-heading"><p className="quiet-kicker">How it works</p><h2>A shorter path from signal to next step.</h2></div><div className="steps-grid">{steps.map(([number, title, copy]) => <article key={number} className="step"><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
+    <section className="content-width section" id="use-cases"><div className="section-heading"><p className="quiet-kicker">What it helps with</p><h2>Useful when the answer is somewhere in the past.</h2></div><div className="use-case-grid"><article><h3>Incident response</h3><p>Find the operational pattern behind a live production problem before making a change.</p></article><article><h3>Architecture decisions</h3><p>Check an old decision against the current context instead of copying it blindly.</p></article><article><h3>Post-incident learning</h3><p>Capture the lesson while it is fresh, ready for the next engineer who needs it.</p></article></div></section>
+    <section className="memory-band"><div className="content-width"><p>Built on Hindsight, persistent memory for AI agents.</p><Link href="/app">Open the workspace <span>→</span></Link></div></section>
+    <footer className="content-width home-footer" id="docs"><span className="wordmark">RECALL</span><div><a href="#product">Product</a><a href="#how-it-works">How it works</a><a href="#docs">Docs</a><a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></div><span>© 2026 RECALL</span></footer>
+  </main>
+}
