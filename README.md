@@ -5,7 +5,9 @@ RECALL is an AI agent that helps engineers respond to production incidents by re
 It is built on [Hindsight](https://github.com/vectorize-io/hindsight), which stores and retrieves the persistent memory RECALL relies on. Hindsight isn't a add-on here — every recommendation RECALL makes is generated *from* what it retrieves from Hindsight for that specific incident.
 
 Demo link: https://youtu.be/VD6OAr7gT30?si=s-6oYEuIdGJHg8M4
+
 Article: https://dev.to/shreshta_poojari_f51a6c09/i-taught-an-engineering-agent-to-remember-what-failed-225a
+
 Linkedin: https://lnkd.in/p/dpQphwUn
 ---
 
@@ -40,49 +42,29 @@ RECALL calls Hindsight at two points:
 
 ### Retrieval — real code
 
-```python
-# backend/[actual file path, e.g. reasoning/recall.py]
+import os
+from dotenv import load_dotenv
+from hindsight_client import Hindsight
 
-# PASTE THE ACTUAL FUNCTION THAT QUERIES HINDSIGHT HERE.
-# Include the real Hindsight client call (e.g. client.query(...) / client.search(...)),
-# the parameters you pass (query text, filters, top_k, etc.), and how the
-# returned memories are passed into /analyze's response.
+load_dotenv()
+
+client = Hindsight(
+    base_url=os.getenv("HINDSIGHT_API_URL"),
+    api_key=os.getenv("HINDSIGHT_API_KEY")
+)
+
+BANK_ID = "novapay-engineering-v2"
+
+
+def recall_memory(query):
+    result = client.recall(
+        bank_id=BANK_ID,
+        query=query
+    )
+
+    return result.results
+
 ```
-
-### Write-back — real code
-
-```python
-# backend/[actual file path, e.g. reasoning/retain.py]
-
-# PASTE THE ACTUAL FUNCTION THAT WRITES A RESOLVED LESSON BACK TO HINDSIGHT.
-# If this endpoint doesn't exist yet and lesson-saving is still UI-only,
-# say that explicitly here instead of showing code that doesn't run —
-# see "Current limitations" below.
-```
-
-### Where this sits in the request path
-
-`POST /analyze` — [confirm this is still your real route]
-
-```json
-// Request
-{
-  "problem": "Payment API latency is currently very high. Should we increase the number of Payment Service replicas?",
-  "current_context": "Payment Service. Production. Strong transactional consistency required."
-}
-```
-
-```json
-// Response
-{
-  "problem": "string",
-  "current_context": "string",
-  "recommendation": "string",
-  "historical_evidence": ["string", "..."]
-}
-```
-
-`historical_evidence` is populated directly from what Hindsight returns for this query — it is not hardcoded or templated per incident type.
 
 ## Architecture
 
